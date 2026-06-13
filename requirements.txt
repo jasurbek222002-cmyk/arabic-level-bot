@@ -1,0 +1,14 @@
+# Jasur Arabic Bot — Python Dependencies
+# Install with: pip install -r requirements.txt
+
+# Telegram Bot framework
+python-telegram-bot==21.6
+
+# Google Gemini AI
+google-generativeai==0.8.3
+
+# HTTP client (for downloading voice files)
+httpx==0.27.2
+
+# Environment variable loading (for local development)
+python-dotenv==1.0.1
