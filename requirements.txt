@@ -1,13 +1,10 @@
 # At-Tanal Arabic Bot — Python Dependencies
 
 # Telegram Bot framework
-python-telegram-bot==21.6
+python-telegram-bot==21.10
 
 # Google Gemini AI (new unified SDK)
 google-genai==1.16.0
-
-# HTTP client for voice file downloads
-httpx==0.27.2
 
 # Environment variable loading (local dev only)
 python-dotenv==1.0.1
