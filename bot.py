@@ -278,7 +278,7 @@ async def grammar_send_question(
         f"ج — {q_data['C']}\n"
         f"د — {q_data['D']}"
     )
-    await _reply(update_or_query, text, kb=abcd_kb(q_num), parse_mode="Markdown")
+    await _reply(update_or_query, text, kb=abcd_kb(q_num), parse_mode="HTML")
 
 
 async def grammar_handle_answer(
@@ -325,10 +325,10 @@ async def grammar_handle_answer(
         else:
             feedback += "📊 Daraja: A1–A2 (Boshlang'ich)"
         kb = back_to_menu_kb()
-        await query.edit_message_text(feedback, parse_mode="Markdown", reply_markup=kb)
+        await query.edit_message_text(feedback, parse_mode="HTML", reply_markup=kb)
         return
 
-    await query.edit_message_text(feedback, parse_mode="Markdown", reply_markup=kb)
+    await query.edit_message_text(feedback, parse_mode="HTML", reply_markup=kb)
 
 
 # ══════════════════════════════════════════════════════════════════════
@@ -430,7 +430,7 @@ async def reading_send_passage(update_or_query, context, session: dict):
         f"اِقْرَأِ النَّصَّ جَيِّدًا، ثُمَّ أَجِبْ عَنِ الأَسْئِلَةِ السِّتَّةِ."
     )
     kb = next_kb("▶️ بَدْءُ الأَسْئِلَةِ", "rd_start_questions")
-    await _reply(update_or_query, text, kb=kb, parse_mode="Markdown")
+    await _reply(update_or_query, text, kb=kb, parse_mode="HTML")
 
 
 async def reading_send_question(update_or_query, context, session: dict):
@@ -448,7 +448,7 @@ async def reading_send_question(update_or_query, context, session: dict):
             await _reply(
                 update_or_query,
                 f"✅ *الْجُزْءُ {part_idx + 1} اكْتَمَلَ!*\nاضْغَطْ لِلِانْتِقَالِ إِلَى الْجُزْءِ التَّالِي.",
-                kb=kb, parse_mode="Markdown"
+                kb=kb, parse_mode="HTML"
             )
         else:
             session["state"] = ST_RD_DONE
@@ -464,7 +464,7 @@ async def reading_send_question(update_or_query, context, session: dict):
                 text += "📊 Daraja: B1–B2"
             else:
                 text += "📊 Daraja: A2–B1"
-            await _reply(update_or_query, text, kb=back_to_menu_kb(), parse_mode="Markdown")
+            await _reply(update_or_query, text, kb=back_to_menu_kb(), parse_mode="HTML")
         return
 
     q = questions[q_idx]
@@ -483,7 +483,7 @@ async def reading_send_question(update_or_query, context, session: dict):
         f"د — {q['D']}"
     )
     kb = abcd_kb(q_idx)
-    await _reply(update_or_query, text, kb=kb, parse_mode="Markdown")
+    await _reply(update_or_query, text, kb=kb, parse_mode="HTML")
 
 
 async def reading_handle_answer(query, context, session: dict, chosen: str):
@@ -509,7 +509,7 @@ async def reading_handle_answer(query, context, session: dict, chosen: str):
     )
     session["rd_q_idx"] = q_idx + 1
     kb = next_kb("التَّالِي ←", "rd_next_q")
-    await query.edit_message_text(feedback, parse_mode="Markdown", reply_markup=kb)
+    await query.edit_message_text(feedback, parse_mode="HTML", reply_markup=kb)
 
 
 # ══════════════════════════════════════════════════════════════════════
@@ -609,7 +609,7 @@ async def listening_send_part(update_or_query, context, session: dict):
         f"اقْرَأِ النَّصَّ بِعِنَايَةٍ وَكَأَنَّكَ تَسْمَعُهُ، ثُمَّ أَجِبْ."
     )
     kb = next_kb("▶️ بَدْءُ الأَسْئِلَةِ", "li_start_questions")
-    await _reply(update_or_query, text, kb=kb, parse_mode="Markdown")
+    await _reply(update_or_query, text, kb=kb, parse_mode="HTML")
 
 
 async def listening_send_question(update_or_query, context, session: dict):
@@ -626,7 +626,7 @@ async def listening_send_question(update_or_query, context, session: dict):
             await _reply(
                 update_or_query,
                 f"✅ *الْجُزْءُ {part_idx + 1} اكْتَمَلَ!*",
-                kb=kb, parse_mode="Markdown"
+                kb=kb, parse_mode="HTML"
             )
         else:
             session["state"] = ST_LI_DONE
@@ -642,7 +642,7 @@ async def listening_send_question(update_or_query, context, session: dict):
                 text += "📊 Daraja: B1–B2"
             else:
                 text += "📊 Daraja: A1–B1"
-            await _reply(update_or_query, text, kb=back_to_menu_kb(), parse_mode="Markdown")
+            await _reply(update_or_query, text, kb=back_to_menu_kb(), parse_mode="HTML")
         return
 
     q = questions[q_idx]
@@ -658,7 +658,7 @@ async def listening_send_question(update_or_query, context, session: dict):
         f"أ — {q['A']}\nب — {q['B']}\nج — {q['C']}\nد — {q['D']}"
     )
     kb = abcd_kb(q_idx)
-    await _reply(update_or_query, text, kb=kb, parse_mode="Markdown")
+    await _reply(update_or_query, text, kb=kb, parse_mode="HTML")
 
 
 async def listening_handle_answer(query, context, session: dict, chosen: str):
@@ -678,7 +678,7 @@ async def listening_handle_answer(query, context, session: dict, chosen: str):
     feedback = f"{icon} *{label}*\n\n📝 *Izoh:*\n{q.get('explanation_uz', '')}"
     session["li_q_idx"] = q_idx + 1
     kb = next_kb("التَّالِي ←", "li_next_q")
-    await query.edit_message_text(feedback, parse_mode="Markdown", reply_markup=kb)
+    await query.edit_message_text(feedback, parse_mode="HTML", reply_markup=kb)
 
 
 # ══════════════════════════════════════════════════════════════════════
@@ -765,7 +765,7 @@ async def speaking_send_prompt(update_or_query, context, session: dict):
     )
     session["state"] = ST_SP_PROMPT
     session["sp_info"] = sp_info
-    await _reply(update_or_query, text, parse_mode="Markdown")
+    await _reply(update_or_query, text, parse_mode="HTML")
 
 
 async def speaking_evaluate(update: Update, context: ContextTypes.DEFAULT_TYPE, session: dict):
@@ -792,7 +792,7 @@ async def speaking_evaluate(update: Update, context: ContextTypes.DEFAULT_TYPE, 
 
         await update.message.reply_text(
             f"📝 *Transkripsiya:*\n_{transcript}_",
-            parse_mode="Markdown"
+            parse_mode="HTML"
         )
 
         # Step 2: Evaluate
@@ -808,7 +808,7 @@ async def speaking_evaluate(update: Update, context: ContextTypes.DEFAULT_TYPE, 
             f"📊 *نَتِيجَةُ التَّقْيِيمِ — السُّؤَالُ {sp_num}*\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n\n"
         )
-        await update.message.reply_text(header + evaluation, parse_mode="Markdown")
+        await update.message.reply_text(header + evaluation, parse_mode="HTML")
 
         # Advance or finish
         if sp_num < 6:
@@ -822,7 +822,7 @@ async def speaking_evaluate(update: Update, context: ContextTypes.DEFAULT_TYPE, 
             session["state"] = ST_SP_DONE
             await update.message.reply_text(
                 "🏁 *اكْتَمَلَ اخْتِبَارُ التَّحَدُّثِ!*\nBarcha 6 savol baholandi.",
-                parse_mode="Markdown",
+                parse_mode="HTML",
                 reply_markup=back_to_menu_kb()
             )
 
@@ -931,7 +931,7 @@ async def writing_send_essay_selection(update_or_query, context, session: dict):
         [InlineKeyboardButton("🟡 الْمُسْتَوَى الْمُتَوَسِّطُ (~150 كَلِمَةٍ)", callback_data="wr_essay_2")],
         [InlineKeyboardButton("🔴 الْمُسْتَوَى الْمُتَقَدِّمُ (~200 كَلِمَةٍ)", callback_data="wr_essay_3")],
     ])
-    await _reply(update_or_query, text, kb=kb, parse_mode="Markdown")
+    await _reply(update_or_query, text, kb=kb, parse_mode="HTML")
 
 
 async def writing_send_prompt(update_or_query, context, session: dict, essay_num: int):
@@ -950,7 +950,7 @@ async def writing_send_prompt(update_or_query, context, session: dict, essay_num
         f"━━━━━━━━━━━━━━━━━━━━━━\n"
         f"✏️ Inshongizni arabcha yozing va yuboring."
     )
-    await _reply(update_or_query, text, parse_mode="Markdown")
+    await _reply(update_or_query, text, parse_mode="HTML")
 
 
 async def writing_evaluate(update: Update, context: ContextTypes.DEFAULT_TYPE, session: dict):
@@ -986,10 +986,10 @@ async def writing_evaluate(update: Update, context: ContextTypes.DEFAULT_TYPE, s
         # Split if too long for Telegram (4096 char limit)
         full_text = header + evaluation
         if len(full_text) > 3800:
-            await update.message.reply_text(header + evaluation[:3700] + "\n\n_(davomi...)_", parse_mode="Markdown")
-            await update.message.reply_text(evaluation[3700:], parse_mode="Markdown", reply_markup=back_to_menu_kb())
+            await update.message.reply_text(header + evaluation[:3700] + "\n\n_(davomi...)_", parse_mode="HTML")
+            await update.message.reply_text(evaluation[3700:], parse_mode="HTML", reply_markup=back_to_menu_kb())
         else:
-            await update.message.reply_text(full_text, parse_mode="Markdown", reply_markup=back_to_menu_kb())
+            await update.message.reply_text(full_text, parse_mode="HTML", reply_markup=back_to_menu_kb())
 
         session["state"] = ST_WR_DONE
 
@@ -1051,7 +1051,7 @@ async def cmd_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "✍️ مَهَارَةُ الْكِتَابَةِ — 3 إِنْشَاءَاتٍ\n\n"
         "اخْتَرِ الْوَحْدَةَ لِلْبَدْءِ:"
     )
-    await update.message.reply_text(text, reply_markup=main_menu_kb(), parse_mode="Markdown")
+    await update.message.reply_text(text, reply_markup=main_menu_kb(), parse_mode="HTML")
 
 
 async def cmd_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -1068,7 +1068,7 @@ async def cmd_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "*Baholash tili:* Kriteriyalar arabcha, tahlil o'zbekcha.\n"
         "*Muhim:* Bu simulyator rasmiy At-Tanal imtihoni emas."
     )
-    await update.message.reply_text(text, parse_mode="Markdown", reply_markup=main_menu_kb())
+    await update.message.reply_text(text, parse_mode="HTML", reply_markup=main_menu_kb())
 
 
 # ══════════════════════════════════════════════════════════════════════
@@ -1220,7 +1220,7 @@ async def handle_voice_message(update: Update, context: ContextTypes.DEFAULT_TYP
         await update.message.reply_text(
             "🎤 Ovozli xabar faqat *Og'zaki nutq moduli* uchun qabul qilinadi.\n"
             "Iltimos modulni menyudan tanlang.",
-            parse_mode="Markdown",
+            parse_mode="HTML",
             reply_markup=main_menu_kb()
         )
 
