@@ -245,7 +245,10 @@ async def grammar_send_question(
     update_or_query, context: ContextTypes.DEFAULT_TYPE, session: dict
 ):
     """Generate and send the next grammar question."""
-    q_num = session["gr_current"]  # 1-based
+    if "gr_current" not in session:
+    await _reply(update_or_query, "⚠️ Sessiya muddati tugadi yoki bot yangilandi. Iltimos, /start buyrug'ini bosing.")
+    return
+q_num = session["gr_current"]
     await _send_typing(update_or_query, context)
 
     try:
